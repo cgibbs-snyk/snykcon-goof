@@ -1,7 +1,7 @@
 name: Example workflow for Node using Snyk
 on: push
 jobs:
-  security:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -10,9 +10,9 @@ jobs:
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYKTOKEN }}
-     - name: Run Snyk monitor 
-       uses: snyk/actions/maven@master
-       env:
-         SNYK_TOKEN: ${{ secrets.SNYKTOKEN }}
-       with:
-         command: monitor
+      - name: Run Snyk monitor 
+      - uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYKTOKEN }}
+        with:
+          command: monitor
