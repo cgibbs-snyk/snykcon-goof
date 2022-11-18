@@ -11,6 +11,9 @@ ignore:
         reason: Test0
         created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-98:
+    - '*':
+        reason: Test1
+        created: 2022-11-18T14:36:17.510Z
     - 'modules/storage/main.tf > *':
         reason: Test2
         created: 2022-11-18T14:36:17.510Z
