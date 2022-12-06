@@ -14,4 +14,8 @@ ignore:
     - 'modules/storage/main.tf > *':
         reason: Test 3
         created: 2022-11-18T14:36:17.510Z
+  SNYK-JS-QS-3153490:
+    - '*':
+        reason: None Given
+        created: 2022-12-06T10:48:51.830Z
 patch: {}
