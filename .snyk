@@ -4,14 +4,14 @@ version: v1.25.0
 ignore:
   SNYK-CC-TF-95:
     - '*':
-        reason: 'Bucket has to be public due to packageValidationTests within Rules repo'
+        reason: Test 1
         created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-96:
     - 'modules\storage\main.tf > *':
-        reason: Test2
+        reason: Test 2
         created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-97:
     - 'modules/storage/main.tf > *':
-        reason: Bucket has to be public due to packageValidationTests within Rules repo
+        reason: Test 3
         created: 2022-11-18T14:36:17.510Z
 patch: {}
