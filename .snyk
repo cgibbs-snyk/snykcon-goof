@@ -4,7 +4,7 @@ version: v1.25.0
 ignore:
   SNYK-CC-TF-95:
     - '*':
-        reason: Test1
+        reason: 'Bucket has to be public due to packageValidationTests within Rules repo'
         created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-96:
     - 'modules\storage\main.tf > *':
@@ -12,10 +12,6 @@ ignore:
         created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-97:
     - 'modules/storage/main.tf > *':
-        reason: Test3
-        created: 2022-11-18T14:36:17.510Z
-  SNYK-CC-TF-98:
-    - 'modules/storage/main.tf > resource > aws_s3_bucket_public_access_block[km_public_blob] > ignore_public_acls':
-        reason: Test4
+        reason: Bucket has to be public due to packageValidationTests within Rules repo
         created: 2022-11-18T14:36:17.510Z
 patch: {}
