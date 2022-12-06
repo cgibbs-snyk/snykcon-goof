@@ -15,10 +15,7 @@ ignore:
         reason: Test3
         created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-98:
-    - 'modules/storage/main.tf > *':
-        reason: Test4
-        created: 2022-11-18T14:36:17.510Z
     - 'modules/storage/main.tf > resource > aws_s3_bucket_public_access_block[km_public_blob] > ignore_public_acls':
-        reason: Test5
+        reason: Test4
         created: 2022-11-18T14:36:17.510Z
 patch: {}
