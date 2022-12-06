@@ -7,7 +7,7 @@ ignore:
         reason: Test 1
         created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-96:
-    - 'modules/storage/main.tf >*':
+    - 'modules/storage/main.tf > *':
         reason: Test 2
         created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-97:
