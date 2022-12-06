@@ -2,6 +2,14 @@
 version: v1.25.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-CC-TF-74:
+    - '*':
+        reason: Test A
+        created: 2022-11-18T14:36:17.510Z
+  SNYK-CC-TF-11:
+    - 'main.tf > *':
+        reason: Test B
+        created: 2022-11-18T14:36:17.510Z
   SNYK-CC-TF-95:
     - '*':
         reason: Test 1
