@@ -2,18 +2,15 @@
 version: v1.25.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  SNYK-CC-TF-8:
-    - '*':
-        reason: None Given
-        created: 2022-11-18T14:26:51.323Z
-  SNYK-CC-TF-97:
-    - '*':
-        reason: Test0
+  SNYK-CC-TF-96:
+    - 'modules\storage\main.tf > *':
+        reason: Test1
         created: 2022-11-18T14:36:17.510Z
-  SNYK-CC-TF-98:
+  SNYK-CC-TF-97:
     - 'modules/storage/main.tf > *':
         reason: Test2
         created: 2022-11-18T14:36:17.510Z
+  SNYK-CC-TF-98:
     - 'modules/storage/main.tf > resource > aws_s3_bucket_public_access_block[km_public_blob] > ignore_public_acls':
         reason: Test3
         created: 2022-11-18T14:36:17.510Z
