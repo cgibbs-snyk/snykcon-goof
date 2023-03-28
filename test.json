@@ -1,0 +1,2437 @@
+[
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "444643c4-f4be-48f4-b05c-7f0a25dae326",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "asdf.json",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/asdf.json",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": false,
+    "infrastructureAsCodeIssues": [
+      {
+        "id": "SNYK-CC-TF-73",
+        "title": "AWS Security Group allows open egress",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "VPC",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-73",
+        "isGeneratedByCustomRule": false,
+        "issue": "The inline security group rule allows open egress",
+        "impact": "Open egress can be used to exfiltrate data to unauthorized destinations, and enable access to potentially malicious resources",
+        "remediation": {
+          "cloudformation": "Set `Properties.SecurityGroupEgress.CidrIp` attribute to specific ranges e.g. `192.168.1.0/24`",
+          "terraform": "Set `egress.cidr_blocks` attribute to specific ranges e.g. `192.168.1.0/24`"
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "The inline security group rule allows open egress",
+          "impact": "Open egress can be used to exfiltrate data to unauthorized destinations, and enable access to potentially malicious resources"
+        },
+        "publicId": "SNYK-CC-TF-73",
+        "msg": "resource.aws_security_group[km_rds_sg].egress[0]",
+        "references": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-best-practices.html"
+        ],
+        "path": [
+          "resource",
+          "aws_security_group[km_rds_sg]",
+          "egress[0]"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-127",
+        "title": "S3 bucket MFA delete control disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-127",
+        "isGeneratedByCustomRule": false,
+        "issue": "S3 bucket will not enforce MFA login on delete requests",
+        "impact": "Object could be deleted without stronger MFA authorization",
+        "resolve": "Follow instructions in `https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html` to manually configure the MFA setting. For AWS provider < v4.0.0 set `versioning.mfa_delete` attribute to `true` in aws_s3_bucket resource. For AWS provider >= v4.0.0 set 'versioning_configuration.mfa_delete` attribute to `Enabled`. The terraform change is required to reflect the setting in the state file",
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "S3 bucket will not enforce MFA login on delete requests",
+          "impact": "Object could be deleted without stronger MFA authorization",
+          "resolve": "Follow instructions in `https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html` to manually configure the MFA setting. For AWS provider < v4.0.0 set `versioning.mfa_delete` attribute to `true` in aws_s3_bucket resource. For AWS provider >= v4.0.0 set 'versioning_configuration.mfa_delete` attribute to `Enabled`. The terraform change is required to reflect the setting in the state file"
+        },
+        "publicId": "SNYK-CC-TF-127",
+        "msg": "resource.aws_s3_bucket[km_public_blob].versioning.mfa_delete",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket[km_public_blob]",
+          "versioning",
+          "mfa_delete"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-1",
+        "title": "Security Group allows open ingress",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "VPC",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-1",
+        "isGeneratedByCustomRule": false,
+        "issue": "That inbound traffic is allowed to a resource from any source instead of a restricted range",
+        "impact": "That potentially everyone can access your resource",
+        "resolve": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`",
+        "remediation": {
+          "cloudformation": "Set `Properties.SecurityGroupIngress.CidrIp` attribute with a more restrictive IP, for example `192.16.0.0/24`",
+          "terraform": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`"
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "That inbound traffic is allowed to a resource from any source instead of a restricted range",
+          "impact": "That potentially everyone can access your resource",
+          "resolve": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`"
+        },
+        "publicId": "SNYK-CC-TF-1",
+        "msg": "input.resource.aws_security_group[km_rds_sg].ingress[0]",
+        "references": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_security_group[km_rds_sg]",
+          "ingress[0]"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-96",
+        "title": "S3 block public policy control is disabled",
+        "severity": "high",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-96",
+        "isGeneratedByCustomRule": false,
+        "issue": "Bucket does not prevent creation of public policies",
+        "impact": "Anyone who can manage bucket's policies will be able to grant public access to the bucket.",
+        "resolve": "Set `aws_s3_bucket_public_access_block` `block_public_policy` attribute to `true`",
+        "remediation": {
+          "cloudformation": "Set `Properties.PublicAccessBlockConfiguration.BlockPublicPolicy` attribute to `true`",
+          "terraform": "Set `aws_s3_bucket_public_access_block` `block_public_policy` attribute to `true`"
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "Bucket does not prevent creation of public policies",
+          "impact": "Anyone who can manage bucket's policies will be able to grant public access to the bucket.",
+          "resolve": "Set `aws_s3_bucket_public_access_block` `block_public_policy` attribute to `true`"
+        },
+        "publicId": "SNYK-CC-TF-96",
+        "msg": "resource.aws_s3_bucket_public_access_block[km_public_blob].block_public_policy",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/user-guide/block-public-access.html",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket_public_access_block[km_public_blob]",
+          "block_public_policy"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-127",
+        "title": "S3 bucket MFA delete control disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-127",
+        "isGeneratedByCustomRule": false,
+        "issue": "S3 bucket will not enforce MFA login on delete requests",
+        "impact": "Object could be deleted without stronger MFA authorization",
+        "resolve": "Follow instructions in `https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html` to manually configure the MFA setting. For AWS provider < v4.0.0 set `versioning.mfa_delete` attribute to `true` in aws_s3_bucket resource. For AWS provider >= v4.0.0 set 'versioning_configuration.mfa_delete` attribute to `Enabled`. The terraform change is required to reflect the setting in the state file",
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "S3 bucket will not enforce MFA login on delete requests",
+          "impact": "Object could be deleted without stronger MFA authorization",
+          "resolve": "Follow instructions in `https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html` to manually configure the MFA setting. For AWS provider < v4.0.0 set `versioning.mfa_delete` attribute to `true` in aws_s3_bucket resource. For AWS provider >= v4.0.0 set 'versioning_configuration.mfa_delete` attribute to `Enabled`. The terraform change is required to reflect the setting in the state file"
+        },
+        "publicId": "SNYK-CC-TF-127",
+        "msg": "resource.aws_s3_bucket[km_blob_storage].versioning.mfa_delete",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket[km_blob_storage]",
+          "versioning",
+          "mfa_delete"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-97",
+        "title": "S3 ignore public ACLs control is disabled",
+        "severity": "high",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-97",
+        "isGeneratedByCustomRule": false,
+        "issue": "Bucket will recognize public ACLs and allow public access",
+        "impact": "If public ACL is attached to the bucket, anyone will be able to read and/or write to the bucket.",
+        "resolve": "Set `aws_s3_bucket_public_access_block` `ignore_public_acls` attribute to `true`",
+        "remediation": {
+          "cloudformation": "Set `Properties.PublicAccessBlockConfiguration.IgnorePublicAcls` attribute to `true`",
+          "terraform": "Set `aws_s3_bucket_public_access_block` `ignore_public_acls` attribute to `true`"
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "Bucket will recognize public ACLs and allow public access",
+          "impact": "If public ACL is attached to the bucket, anyone will be able to read and/or write to the bucket.",
+          "resolve": "Set `aws_s3_bucket_public_access_block` `ignore_public_acls` attribute to `true`"
+        },
+        "publicId": "SNYK-CC-TF-97",
+        "msg": "resource.aws_s3_bucket_public_access_block[km_public_blob].ignore_public_acls",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/user-guide/block-public-access.html",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-accesspoint.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket_public_access_block[km_public_blob]",
+          "ignore_public_acls"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-AWS-414",
+        "title": "RDS IAM authentication is disabled",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "RDS",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-AWS-414",
+        "isGeneratedByCustomRule": false,
+        "issue": "IAM database authentication is disabled, authentication tokens are not used to connect to DB instance",
+        "impact": "Users will connect to DB instance with password, which are less secure than temporary tokens which expire",
+        "resolve": "Set `iam_database_authentication_enabled` to `true`.",
+        "remediation": {
+          "cloudformation": "Set `Properties.EnableIAMDatabaseAuthentication` to `true`.",
+          "terraform": "Set `iam_database_authentication_enabled` to `true`."
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "IAM database authentication is disabled, authentication tokens are not used to connect to DB instance",
+          "impact": "Users will connect to DB instance with password, which are less secure than temporary tokens which expire",
+          "resolve": "Set `iam_database_authentication_enabled` to `true`."
+        },
+        "publicId": "SNYK-CC-AWS-414",
+        "msg": "resource.aws_db_instance[km_db].iam_database_authentication_enabled",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"
+        ],
+        "path": [
+          "resource",
+          "aws_db_instance[km_db]",
+          "iam_database_authentication_enabled"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-53",
+        "title": "Non-Encrypted root block device",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "EC2",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-53",
+        "isGeneratedByCustomRule": false,
+        "issue": "The root block device for ec2 instance is not encrypted",
+        "impact": "That should someone gain unauthorized access to the data they would be able to read the contents.",
+        "resolve": "Set `root_block_device.encrypted` attribute to `true`",
+        "remediation": {
+          "cloudformation": "Set `BlockDeviceMappings.Encrypted` attribute of root device to `true`",
+          "terraform": "Set `root_block_device.encrypted` attribute to `true`"
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "The root block device for ec2 instance is not encrypted",
+          "impact": "That should someone gain unauthorized access to the data they would be able to read the contents.",
+          "resolve": "Set `root_block_device.encrypted` attribute to `true`"
+        },
+        "publicId": "SNYK-CC-TF-53",
+        "msg": "resource.aws_instance[this[\"0\"]].root_block_device.encrypted",
+        "references": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html",
+          "https://aws.amazon.com/premiumsupport/knowledge-center/cloudformation-root-volume-property/",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html"
+        ],
+        "path": [
+          "resource",
+          "aws_instance[this[\"0\"]]",
+          "root_block_device",
+          "encrypted"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-98",
+        "title": "S3 restrict public bucket control is disabled",
+        "severity": "high",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-98",
+        "isGeneratedByCustomRule": false,
+        "issue": "Bucket will recognize public policies and allow public access",
+        "impact": "If public policy is attached to the bucket, anyone will be able to read and/or write to the bucket.",
+        "resolve": "Set `aws_s3_bucket_public_access_block` `restrict_public_buckets` attribute to `true`",
+        "remediation": {
+          "cloudformation": "Set `Properties.PublicAccessBlockConfiguration.RestrictPublicBuckets` attribute to `true`",
+          "terraform": "Set `aws_s3_bucket_public_access_block` `restrict_public_buckets` attribute to `true`"
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "Bucket will recognize public policies and allow public access",
+          "impact": "If public policy is attached to the bucket, anyone will be able to read and/or write to the bucket.",
+          "resolve": "Set `aws_s3_bucket_public_access_block` `restrict_public_buckets` attribute to `true`"
+        },
+        "publicId": "SNYK-CC-TF-98",
+        "msg": "resource.aws_s3_bucket_public_access_block[km_public_blob].restrict_public_buckets",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/user-guide/block-public-access.html",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket_public_access_block[km_public_blob]",
+          "restrict_public_buckets"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-AWS-426",
+        "title": "EC2 API termination protection is not enabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "EC2",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-AWS-426",
+        "isGeneratedByCustomRule": false,
+        "issue": "To prevent instance from being accidentally terminated using Amazon EC2, you can enable termination protection for the instance",
+        "impact": "Without this setting enabled the instances can be terminated by accident. This setting should only be used for instances with high availability requirements. Enabling this may prevent IaC workflows from updating the instance, for example terraform will not be able to terminate the instance to update instance type",
+        "resolve": "Set `disable_api_termination` attribute  with value `true`",
+        "remediation": {
+          "cloudformation": "Set `DisableApiTermination` attribute with value `true`",
+          "terraform": "Set `disable_api_termination` attribute  with value `true`"
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "To prevent instance from being accidentally terminated using Amazon EC2, you can enable termination protection for the instance",
+          "impact": "Without this setting enabled the instances can be terminated by accident. This setting should only be used for instances with high availability requirements. Enabling this may prevent IaC workflows from updating the instance, for example terraform will not be able to terminate the instance to update instance type",
+          "resolve": "Set `disable_api_termination` attribute  with value `true`"
+        },
+        "publicId": "SNYK-CC-AWS-426",
+        "msg": "resource.aws_instance[this[\"0\"]].disable_api_termination",
+        "references": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#Using_ChangingDisableAPITermination"
+        ],
+        "path": [
+          "resource",
+          "aws_instance[this[\"0\"]]",
+          "disable_api_termination"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-45",
+        "title": "S3 server access logging is disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-45",
+        "isGeneratedByCustomRule": false,
+        "issue": "The s3 access logs will not be collected",
+        "impact": "There will be no audit trail of access to s3 objects",
+        "resolve": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource.",
+        "remediation": {
+          "cloudformation": "Set `Properties.LoggingConfiguration` attribute",
+          "terraform": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource."
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "The s3 access logs will not be collected",
+          "impact": "There will be no audit trail of access to s3 objects",
+          "resolve": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource."
+        },
+        "publicId": "SNYK-CC-TF-45",
+        "msg": "input.resource.aws_s3_bucket[km_blob_storage].logging",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_s3_bucket[km_blob_storage]",
+          "logging"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-45",
+        "title": "S3 server access logging is disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-45",
+        "isGeneratedByCustomRule": false,
+        "issue": "The s3 access logs will not be collected",
+        "impact": "There will be no audit trail of access to s3 objects",
+        "resolve": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource.",
+        "remediation": {
+          "cloudformation": "Set `Properties.LoggingConfiguration` attribute",
+          "terraform": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource."
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "The s3 access logs will not be collected",
+          "impact": "There will be no audit trail of access to s3 objects",
+          "resolve": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource."
+        },
+        "publicId": "SNYK-CC-TF-45",
+        "msg": "input.resource.aws_s3_bucket[km_public_blob].logging",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_s3_bucket[km_public_blob]",
+          "logging"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-130",
+        "title": "EC2 instance accepts IMDSv1",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "EC2",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-130",
+        "isGeneratedByCustomRule": false,
+        "issue": "Instance Metadata Service v2 is not enforced",
+        "impact": "Metadata service may be vulnerable to reverse proxy/open firewall misconfigurations and server side request forgery attacks",
+        "resolve": "Set `metadata_options.http_tokens` attribute to `required`",
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "Instance Metadata Service v2 is not enforced",
+          "impact": "Metadata service may be vulnerable to reverse proxy/open firewall misconfigurations and server side request forgery attacks",
+          "resolve": "Set `metadata_options.http_tokens` attribute to `required`"
+        },
+        "publicId": "SNYK-CC-TF-130",
+        "msg": "resource.aws_instance[this[\"0\"]].metadata_options",
+        "references": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html",
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html",
+          "https://aws.amazon.com/blogs/security/defense-in-depth-open-firewalls-reverse-proxies-ssrf-vulnerabilities-ec2-instance-metadata-service/"
+        ],
+        "path": [
+          "resource",
+          "aws_instance[this[\"0\"]]",
+          "metadata_options"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-124",
+        "title": "S3 bucket versioning disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-124",
+        "isGeneratedByCustomRule": false,
+        "issue": "S3 bucket versioning is disabled",
+        "impact": "Changes or deletion of objects will not be reversible",
+        "resolve": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource.",
+        "remediation": {
+          "cloudformation": "Set `Properties.VersioningConfiguration.Status` attribute to `Enabled`",
+          "terraform": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource."
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "S3 bucket versioning is disabled",
+          "impact": "Changes or deletion of objects will not be reversible",
+          "resolve": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource."
+        },
+        "publicId": "SNYK-CC-TF-124",
+        "msg": "resource.aws_s3_bucket[km_blob_storage].versioning.enabled",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket[km_blob_storage]",
+          "versioning",
+          "enabled"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-4",
+        "title": "Non-encrypted S3 Bucket",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-4",
+        "isGeneratedByCustomRule": false,
+        "issue": "Non-encrypted S3 Bucket",
+        "impact": "A non-encrypted S3 bucket increases the likelihood of unintentional data exposure",
+        "resolve": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource.",
+        "remediation": {
+          "cloudformation": "Set `BucketEncryption` attribute",
+          "terraform": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource."
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "Non-encrypted S3 Bucket",
+          "impact": "A non-encrypted S3 bucket increases the likelihood of unintentional data exposure",
+          "resolve": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource."
+        },
+        "publicId": "SNYK-CC-TF-4",
+        "msg": "input.resource.aws_s3_bucket[km_blob_storage]",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/default-bucket-encryption.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_s3_bucket[km_blob_storage]"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-4",
+        "title": "Non-encrypted S3 Bucket",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-4",
+        "isGeneratedByCustomRule": false,
+        "issue": "Non-encrypted S3 Bucket",
+        "impact": "A non-encrypted S3 bucket increases the likelihood of unintentional data exposure",
+        "resolve": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource.",
+        "remediation": {
+          "cloudformation": "Set `BucketEncryption` attribute",
+          "terraform": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource."
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "Non-encrypted S3 Bucket",
+          "impact": "A non-encrypted S3 bucket increases the likelihood of unintentional data exposure",
+          "resolve": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource."
+        },
+        "publicId": "SNYK-CC-TF-4",
+        "msg": "input.resource.aws_s3_bucket[km_public_blob]",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/default-bucket-encryption.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_s3_bucket[km_public_blob]"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-AWS-408",
+        "title": "RDS automatic backup is disabled",
+        "severity": "medium",
+        "isIgnored": false,
+        "type": "terraform",
+        "subType": "RDS",
+        "policyEngineType": "opa",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-AWS-408",
+        "isGeneratedByCustomRule": false,
+        "issue": "Automatic backup of AWS Relational Database is disabled",
+        "impact": "No automatic backups will occur, availability risk if disaster occurs and manual backups have not been set",
+        "resolve": "Set `resource.backup_retention_period` to `1` or more",
+        "remediation": {
+          "cloudformation": "Set `Properties.BackupRetentionPeriod` to `1` or more",
+          "terraform": "Set `resource.backup_retention_period` to `1` or more"
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "Automatic backup of AWS Relational Database is disabled",
+          "impact": "No automatic backups will occur, availability risk if disaster occurs and manual backups have not been set",
+          "resolve": "Set `resource.backup_retention_period` to `1` or more"
+        },
+        "publicId": "SNYK-CC-AWS-408",
+        "msg": "resource.aws_db_instance[km_db].backup_retention_period",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html"
+        ],
+        "path": [
+          "resource",
+          "aws_db_instance[km_db]",
+          "backup_retention_period"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-124",
+        "title": "S3 bucket versioning disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-124",
+        "isGeneratedByCustomRule": false,
+        "issue": "S3 bucket versioning is disabled",
+        "impact": "Changes or deletion of objects will not be reversible",
+        "resolve": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource.",
+        "remediation": {
+          "cloudformation": "Set `Properties.VersioningConfiguration.Status` attribute to `Enabled`",
+          "terraform": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource."
+        },
+        "lineNumber": -1,
+        "iacDescription": {
+          "issue": "S3 bucket versioning is disabled",
+          "impact": "Changes or deletion of objects will not be reversible",
+          "resolve": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource."
+        },
+        "publicId": "SNYK-CC-TF-124",
+        "msg": "resource.aws_s3_bucket[km_public_blob].versioning.enabled",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket[km_public_blob]",
+          "versioning",
+          "enabled"
+        ],
+        "compliance": []
+      }
+    ]
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "28dd1754-6267-4867-849d-3b95bf4f3fef",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "k8s-deployment.yaml",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/k8s-deployment.yaml",
+    "packageManager": "k8sconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "k8sconfig",
+    "ok": false,
+    "infrastructureAsCodeIssues": [
+      {
+        "id": "SNYK-CC-K8S-5",
+        "title": "Container has no CPU limit",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-5",
+        "isGeneratedByCustomRule": false,
+        "issue": "Container has no CPU limit",
+        "impact": "CPU limits can prevent containers from consuming valuable compute time for no benefit (e.g. inefficient code) that might lead to unnecessary costs. It is advisable to also configure CPU requests to ensure application stability.",
+        "resolve": "Add `resources.limits.cpu` field with required CPU limit value",
+        "remediation": {
+          "kubernetes": "Add `resources.limits.cpu` field with required CPU limit value",
+          "terraform": "Add `spec.container.resources.limits.cpu` field with required CPU limit value"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "Container has no CPU limit",
+          "impact": "CPU limits can prevent containers from consuming valuable compute time for no benefit (e.g. inefficient code) that might lead to unnecessary costs. It is advisable to also configure CPU requests to ensure application stability.",
+          "resolve": "Add `resources.limits.cpu` field with required CPU limit value"
+        },
+        "publicId": "SNYK-CC-K8S-5",
+        "msg": "input.spec.template.spec.containers[nginx].resources.limits.cpu",
+        "references": [
+          "https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/",
+          "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+          "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/",
+          "https://github.com/kubernetes/design-proposals-archive/blob/8da1442ea29adccea40693357d04727127e045ed/node/resource-qos.md#compressible-resource-guaranteess"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "resources",
+          "limits",
+          "cpu"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-9",
+        "title": "Container is running without privilege escalation control",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-9",
+        "isGeneratedByCustomRule": false,
+        "issue": "`allowPrivilegeEscalation` attribute is not set to `false`",
+        "impact": "Processes could elevate current privileges via known vectors, for example SUID binaries",
+        "resolve": "Set `securityContext.allowPrivilegeEscalation` to `false`",
+        "remediation": {
+          "kubernetes": "Set `securityContext.allowPrivilegeEscalation` to `false`",
+          "terraform": "Set `spec.container.security_context.allow_privilege_escalation` to `false`"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "`allowPrivilegeEscalation` attribute is not set to `false`",
+          "impact": "Processes could elevate current privileges via known vectors, for example SUID binaries",
+          "resolve": "Set `securityContext.allowPrivilegeEscalation` to `false`"
+        },
+        "publicId": "SNYK-CC-K8S-9",
+        "msg": "input.spec.template.spec.containers[nginx].securityContext.allowPrivilegeEscalation",
+        "references": [
+          "CIS Docker Benchmark 1.2.0 - 5.25 Ensure that the container is restricted from acquiring additional privileges",
+          "https://www.kernel.org/doc/html/latest/userspace-api/no_new_privs.html"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "securityContext",
+          "allowPrivilegeEscalation"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-10",
+        "title": "Container is running without root user control",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-10",
+        "isGeneratedByCustomRule": false,
+        "issue": "Container is running without root user control",
+        "impact": "Container could be running with full administrative privileges",
+        "resolve": "Set `securityContext.runAsNonRoot` to `true`",
+        "remediation": {
+          "kubernetes": "Set `securityContext.runAsNonRoot` to `true`",
+          "terraform": "Set `security_context.run_as_non_root` to `true`"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "Container is running without root user control",
+          "impact": "Container could be running with full administrative privileges",
+          "resolve": "Set `securityContext.runAsNonRoot` to `true`"
+        },
+        "publicId": "SNYK-CC-K8S-10",
+        "msg": "input.spec.template.spec.containers[postgres].securityContext.runAsNonRoot",
+        "description": "",
+        "references": [
+          "CIS Docker Benchmark 1.2.0 - 5.5 Ensure sensitive host system directories are not mounted on containers",
+          "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "securityContext",
+          "runAsNonRoot"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-41",
+        "title": "Container is running without liveness probe",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-41",
+        "isGeneratedByCustomRule": false,
+        "issue": "Liveness probe is not defined",
+        "impact": "Kubernetes will not be able to detect if application is able to service requests, and will not restart unhealthy pods",
+        "resolve": "Add `livenessProbe` attribute",
+        "remediation": {
+          "kubernetes": "Add `livenessProbe` attribute",
+          "terraform": "Add `liveness_probe` attribute"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "Liveness probe is not defined",
+          "impact": "Kubernetes will not be able to detect if application is able to service requests, and will not restart unhealthy pods",
+          "resolve": "Add `livenessProbe` attribute"
+        },
+        "publicId": "SNYK-CC-K8S-41",
+        "msg": "spec.template.spec.containers[nginx].livenessProbe",
+        "references": [
+          "CIS Docker Benchmark v1.2.0 - 5.26 Ensure that container health is checked at runtime",
+          "https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/",
+          "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/",
+          "https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "livenessProbe"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-8",
+        "title": "Container is running with writable root filesystem",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-8",
+        "isGeneratedByCustomRule": false,
+        "issue": "`readOnlyRootFilesystem` attribute is not set to `true`",
+        "impact": "Compromised process could abuse writable root filesystem to elevate privileges",
+        "resolve": "Set `securityContext.readOnlyRootFilesystem` to `true`",
+        "remediation": {
+          "kubernetes": "Set `securityContext.readOnlyRootFilesystem` to `true`",
+          "terraform": "Set `security_context.read_only_root_filesystem` to `true`"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "`readOnlyRootFilesystem` attribute is not set to `true`",
+          "impact": "Compromised process could abuse writable root filesystem to elevate privileges",
+          "resolve": "Set `securityContext.readOnlyRootFilesystem` to `true`"
+        },
+        "publicId": "SNYK-CC-K8S-8",
+        "msg": "input.spec.template.spec.containers[postgres].securityContext.readOnlyRootFilesystem",
+        "references": [
+          "CIS Docker Benchmark 1.2.0 - Ensure that the container's root filesystem is mounted as read only",
+          "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "securityContext",
+          "readOnlyRootFilesystem"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-5",
+        "title": "Container has no CPU limit",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-5",
+        "isGeneratedByCustomRule": false,
+        "issue": "Container has no CPU limit",
+        "impact": "CPU limits can prevent containers from consuming valuable compute time for no benefit (e.g. inefficient code) that might lead to unnecessary costs. It is advisable to also configure CPU requests to ensure application stability.",
+        "resolve": "Add `resources.limits.cpu` field with required CPU limit value",
+        "remediation": {
+          "kubernetes": "Add `resources.limits.cpu` field with required CPU limit value",
+          "terraform": "Add `spec.container.resources.limits.cpu` field with required CPU limit value"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "Container has no CPU limit",
+          "impact": "CPU limits can prevent containers from consuming valuable compute time for no benefit (e.g. inefficient code) that might lead to unnecessary costs. It is advisable to also configure CPU requests to ensure application stability.",
+          "resolve": "Add `resources.limits.cpu` field with required CPU limit value"
+        },
+        "publicId": "SNYK-CC-K8S-5",
+        "msg": "input.spec.template.spec.containers[postgres].resources.limits.cpu",
+        "references": [
+          "https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/",
+          "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+          "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/",
+          "https://github.com/kubernetes/design-proposals-archive/blob/8da1442ea29adccea40693357d04727127e045ed/node/resource-qos.md#compressible-resource-guaranteess"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "resources",
+          "limits",
+          "cpu"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-8",
+        "title": "Container is running with writable root filesystem",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-8",
+        "isGeneratedByCustomRule": false,
+        "issue": "`readOnlyRootFilesystem` attribute is not set to `true`",
+        "impact": "Compromised process could abuse writable root filesystem to elevate privileges",
+        "resolve": "Set `securityContext.readOnlyRootFilesystem` to `true`",
+        "remediation": {
+          "kubernetes": "Set `securityContext.readOnlyRootFilesystem` to `true`",
+          "terraform": "Set `security_context.read_only_root_filesystem` to `true`"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "`readOnlyRootFilesystem` attribute is not set to `true`",
+          "impact": "Compromised process could abuse writable root filesystem to elevate privileges",
+          "resolve": "Set `securityContext.readOnlyRootFilesystem` to `true`"
+        },
+        "publicId": "SNYK-CC-K8S-8",
+        "msg": "input.spec.template.spec.containers[nginx].securityContext.readOnlyRootFilesystem",
+        "references": [
+          "CIS Docker Benchmark 1.2.0 - Ensure that the container's root filesystem is mounted as read only",
+          "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "securityContext",
+          "readOnlyRootFilesystem"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-4",
+        "title": "Container is running without memory limit",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-4",
+        "isGeneratedByCustomRule": false,
+        "issue": "Memory limit is not defined",
+        "impact": "Containers without memory limits are more likely to be terminated when the node runs out of memory",
+        "resolve": "Set `resources.limits.memory` value",
+        "remediation": {
+          "kubernetes": "Set `resources.limits.memory` value",
+          "terraform": "Set `resources.limits.memory` value"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "Memory limit is not defined",
+          "impact": "Containers without memory limits are more likely to be terminated when the node runs out of memory",
+          "resolve": "Set `resources.limits.memory` value"
+        },
+        "publicId": "SNYK-CC-K8S-4",
+        "msg": "input.spec.template.spec.containers[postgres].resources.limits.memory",
+        "references": [
+          "CIS Docker Benchmark 1.2.0 - 5.10 Ensure that the memory usage for containers is limited",
+          "https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/",
+          "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "resources",
+          "limits",
+          "memory"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-42",
+        "title": "Container could be running with outdated image",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-42",
+        "isGeneratedByCustomRule": false,
+        "issue": "The image policy does not prevent image reuse",
+        "impact": "The container may run with outdated or unauthorized image",
+        "resolve": "Set `imagePullPolicy` attribute to `Always`",
+        "remediation": {
+          "kubernetes": "Set `imagePullPolicy` attribute to `Always`",
+          "terraform": "Set `image_pull_policy` attribute to `Always"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "The image policy does not prevent image reuse",
+          "impact": "The container may run with outdated or unauthorized image",
+          "resolve": "Set `imagePullPolicy` attribute to `Always`"
+        },
+        "publicId": "SNYK-CC-K8S-42",
+        "msg": "spec.template.spec.containers[nginx].imagePullPolicy",
+        "references": [
+          "5.27 Ensure that Docker commands always make use of the latest version of their image",
+          "https://kubernetes.io/docs/concepts/containers/images/",
+          "https://kubernetes.io/docs/concepts/configuration/overview/#container-images"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "imagePullPolicy"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-6",
+        "title": "Container does not drop all default capabilities",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-6",
+        "isGeneratedByCustomRule": false,
+        "issue": "All default capabilities are not explicitly dropped",
+        "impact": "Containers are running with potentially unnecessary privileges",
+        "resolve": "Add `ALL` to `securityContext.capabilities.drop` list, and add only required capabilities in `securityContext.capabilities.add`",
+        "remediation": {
+          "kubernetes": "Add `ALL` to `securityContext.capabilities.drop` list, and add only required capabilities in `securityContext.capabilities.add`",
+          "terraform": "Add `ALL` to `spec.container.security_context.capabilities.drop` list, and add only required capabilities to `spec.container.security_context.capabilities.add`, ensuring it also does not contain `ALL`"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "All default capabilities are not explicitly dropped",
+          "impact": "Containers are running with potentially unnecessary privileges",
+          "resolve": "Add `ALL` to `securityContext.capabilities.drop` list, and add only required capabilities in `securityContext.capabilities.add`"
+        },
+        "publicId": "SNYK-CC-K8S-6",
+        "msg": "input.spec.template.spec.containers[nginx].securityContext.capabilities.drop",
+        "references": [
+          "https://kubernetes.io/docs/tasks/configure-pod-container/security-context/",
+          "https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "securityContext",
+          "capabilities",
+          "drop"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-11",
+        "title": "Container's UID could clash with host's UID",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-11",
+        "isGeneratedByCustomRule": false,
+        "issue": "`runAsUser` value is set to low UID",
+        "impact": "UID of the container processes could clash with host's UIDs and lead to unintentional authorization bypass",
+        "resolve": "Set `securityContext.runAsUser` value to greater or equal than 10000",
+        "remediation": {
+          "kubernetes": "Set `securityContext.runAsUser` value to greater or equal than 10000",
+          "terraform": "Set `security_context.run_as_user` value to greater or equal than 10000"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "`runAsUser` value is set to low UID",
+          "impact": "UID of the container processes could clash with host's UIDs and lead to unintentional authorization bypass",
+          "resolve": "Set `securityContext.runAsUser` value to greater or equal than 10000"
+        },
+        "publicId": "SNYK-CC-K8S-11",
+        "msg": "input.spec.template.spec.containers[nginx].securityContext.runAsUser",
+        "references": [
+          "https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container",
+          "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "securityContext",
+          "runAsUser"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-4",
+        "title": "Container is running without memory limit",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-4",
+        "isGeneratedByCustomRule": false,
+        "issue": "Memory limit is not defined",
+        "impact": "Containers without memory limits are more likely to be terminated when the node runs out of memory",
+        "resolve": "Set `resources.limits.memory` value",
+        "remediation": {
+          "kubernetes": "Set `resources.limits.memory` value",
+          "terraform": "Set `resources.limits.memory` value"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "Memory limit is not defined",
+          "impact": "Containers without memory limits are more likely to be terminated when the node runs out of memory",
+          "resolve": "Set `resources.limits.memory` value"
+        },
+        "publicId": "SNYK-CC-K8S-4",
+        "msg": "input.spec.template.spec.containers[nginx].resources.limits.memory",
+        "references": [
+          "CIS Docker Benchmark 1.2.0 - 5.10 Ensure that the memory usage for containers is limited",
+          "https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/",
+          "https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "resources",
+          "limits",
+          "memory"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-41",
+        "title": "Container is running without liveness probe",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-41",
+        "isGeneratedByCustomRule": false,
+        "issue": "Liveness probe is not defined",
+        "impact": "Kubernetes will not be able to detect if application is able to service requests, and will not restart unhealthy pods",
+        "resolve": "Add `livenessProbe` attribute",
+        "remediation": {
+          "kubernetes": "Add `livenessProbe` attribute",
+          "terraform": "Add `liveness_probe` attribute"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "Liveness probe is not defined",
+          "impact": "Kubernetes will not be able to detect if application is able to service requests, and will not restart unhealthy pods",
+          "resolve": "Add `livenessProbe` attribute"
+        },
+        "publicId": "SNYK-CC-K8S-41",
+        "msg": "spec.template.spec.containers[postgres].livenessProbe",
+        "references": [
+          "CIS Docker Benchmark v1.2.0 - 5.26 Ensure that container health is checked at runtime",
+          "https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/",
+          "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/",
+          "https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "livenessProbe"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-11",
+        "title": "Container's UID could clash with host's UID",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-11",
+        "isGeneratedByCustomRule": false,
+        "issue": "`runAsUser` value is set to low UID",
+        "impact": "UID of the container processes could clash with host's UIDs and lead to unintentional authorization bypass",
+        "resolve": "Set `securityContext.runAsUser` value to greater or equal than 10000",
+        "remediation": {
+          "kubernetes": "Set `securityContext.runAsUser` value to greater or equal than 10000",
+          "terraform": "Set `security_context.run_as_user` value to greater or equal than 10000"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "`runAsUser` value is set to low UID",
+          "impact": "UID of the container processes could clash with host's UIDs and lead to unintentional authorization bypass",
+          "resolve": "Set `securityContext.runAsUser` value to greater or equal than 10000"
+        },
+        "publicId": "SNYK-CC-K8S-11",
+        "msg": "input.spec.template.spec.containers[postgres].securityContext.runAsUser",
+        "references": [
+          "https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container",
+          "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "securityContext",
+          "runAsUser"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-10",
+        "title": "Container is running without root user control",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-10",
+        "isGeneratedByCustomRule": false,
+        "issue": "Container is running without root user control",
+        "impact": "Container could be running with full administrative privileges",
+        "resolve": "Set `securityContext.runAsNonRoot` to `true`",
+        "remediation": {
+          "kubernetes": "Set `securityContext.runAsNonRoot` to `true`",
+          "terraform": "Set `security_context.run_as_non_root` to `true`"
+        },
+        "lineNumber": 18,
+        "iacDescription": {
+          "issue": "Container is running without root user control",
+          "impact": "Container could be running with full administrative privileges",
+          "resolve": "Set `securityContext.runAsNonRoot` to `true`"
+        },
+        "publicId": "SNYK-CC-K8S-10",
+        "msg": "input.spec.template.spec.containers[nginx].securityContext.runAsNonRoot",
+        "description": "",
+        "references": [
+          "CIS Docker Benchmark 1.2.0 - 5.5 Ensure sensitive host system directories are not mounted on containers",
+          "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[nginx]",
+          "securityContext",
+          "runAsNonRoot"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-42",
+        "title": "Container could be running with outdated image",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-42",
+        "isGeneratedByCustomRule": false,
+        "issue": "The image policy does not prevent image reuse",
+        "impact": "The container may run with outdated or unauthorized image",
+        "resolve": "Set `imagePullPolicy` attribute to `Always`",
+        "remediation": {
+          "kubernetes": "Set `imagePullPolicy` attribute to `Always`",
+          "terraform": "Set `image_pull_policy` attribute to `Always"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "The image policy does not prevent image reuse",
+          "impact": "The container may run with outdated or unauthorized image",
+          "resolve": "Set `imagePullPolicy` attribute to `Always`"
+        },
+        "publicId": "SNYK-CC-K8S-42",
+        "msg": "spec.template.spec.containers[postgres].imagePullPolicy",
+        "references": [
+          "5.27 Ensure that Docker commands always make use of the latest version of their image",
+          "https://kubernetes.io/docs/concepts/containers/images/",
+          "https://kubernetes.io/docs/concepts/configuration/overview/#container-images"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "imagePullPolicy"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-9",
+        "title": "Container is running without privilege escalation control",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-9",
+        "isGeneratedByCustomRule": false,
+        "issue": "`allowPrivilegeEscalation` attribute is not set to `false`",
+        "impact": "Processes could elevate current privileges via known vectors, for example SUID binaries",
+        "resolve": "Set `securityContext.allowPrivilegeEscalation` to `false`",
+        "remediation": {
+          "kubernetes": "Set `securityContext.allowPrivilegeEscalation` to `false`",
+          "terraform": "Set `spec.container.security_context.allow_privilege_escalation` to `false`"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "`allowPrivilegeEscalation` attribute is not set to `false`",
+          "impact": "Processes could elevate current privileges via known vectors, for example SUID binaries",
+          "resolve": "Set `securityContext.allowPrivilegeEscalation` to `false`"
+        },
+        "publicId": "SNYK-CC-K8S-9",
+        "msg": "input.spec.template.spec.containers[postgres].securityContext.allowPrivilegeEscalation",
+        "references": [
+          "CIS Docker Benchmark 1.2.0 - 5.25 Ensure that the container is restricted from acquiring additional privileges",
+          "https://www.kernel.org/doc/html/latest/userspace-api/no_new_privs.html"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "securityContext",
+          "allowPrivilegeEscalation"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-K8S-6",
+        "title": "Container does not drop all default capabilities",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "Deployment",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-K8S-6",
+        "isGeneratedByCustomRule": false,
+        "issue": "All default capabilities are not explicitly dropped",
+        "impact": "Containers are running with potentially unnecessary privileges",
+        "resolve": "Add `ALL` to `securityContext.capabilities.drop` list, and add only required capabilities in `securityContext.capabilities.add`",
+        "remediation": {
+          "kubernetes": "Add `ALL` to `securityContext.capabilities.drop` list, and add only required capabilities in `securityContext.capabilities.add`",
+          "terraform": "Add `ALL` to `spec.container.security_context.capabilities.drop` list, and add only required capabilities to `spec.container.security_context.capabilities.add`, ensuring it also does not contain `ALL`"
+        },
+        "lineNumber": 22,
+        "iacDescription": {
+          "issue": "All default capabilities are not explicitly dropped",
+          "impact": "Containers are running with potentially unnecessary privileges",
+          "resolve": "Add `ALL` to `securityContext.capabilities.drop` list, and add only required capabilities in `securityContext.capabilities.add`"
+        },
+        "publicId": "SNYK-CC-K8S-6",
+        "msg": "input.spec.template.spec.containers[postgres].securityContext.capabilities.drop",
+        "references": [
+          "https://kubernetes.io/docs/tasks/configure-pod-container/security-context/",
+          "https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/"
+        ],
+        "path": [
+          "[DocId: 0]",
+          "input",
+          "spec",
+          "template",
+          "spec",
+          "containers[postgres]",
+          "securityContext",
+          "capabilities",
+          "drop"
+        ],
+        "compliance": []
+      }
+    ]
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "5716c77b-938a-412e-b309-904dea0a3d82",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "main.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/main.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": false,
+    "infrastructureAsCodeIssues": [
+      {
+        "id": "SNYK-CC-TF-8",
+        "title": "IAM password should contain lowercase",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "IAM",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-8",
+        "isGeneratedByCustomRule": false,
+        "issue": "Your password does not contain lowercase characters",
+        "impact": "Your password is not following the recommended security practices and is not as strong as it should be",
+        "resolve": "Set the `require_lowercase_characters` attribute to be `true` to increase the strength of your password",
+        "remediation": {
+          "terraform": "Set the `require_lowercase_characters` attribute to be `true` to increase the strength of your password"
+        },
+        "lineNumber": 11,
+        "iacDescription": {
+          "issue": "Your password does not contain lowercase characters",
+          "impact": "Your password is not following the recommended security practices and is not as strong as it should be",
+          "resolve": "Set the `require_lowercase_characters` attribute to be `true` to increase the strength of your password"
+        },
+        "publicId": "SNYK-CC-TF-8",
+        "msg": "input.resource.aws_iam_account_password_policy[strict].require_lowercase_characters",
+        "references": [],
+        "path": [
+          "input",
+          "resource",
+          "aws_iam_account_password_policy[strict]",
+          "require_lowercase_characters"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-7",
+        "title": "IAM password should contain uppercase",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "IAM",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-7",
+        "isGeneratedByCustomRule": false,
+        "issue": "Your password does not contain uppercase characters",
+        "impact": "Your password is not following the recommended security practices and is not as strong as it should be",
+        "resolve": "Set the `require_uppercase_characters` attribute to be `true` to increase the strength of your password",
+        "remediation": {
+          "terraform": "Set the `require_uppercase_characters` attribute to be `true` to increase the strength of your password"
+        },
+        "lineNumber": 11,
+        "iacDescription": {
+          "issue": "Your password does not contain uppercase characters",
+          "impact": "Your password is not following the recommended security practices and is not as strong as it should be",
+          "resolve": "Set the `require_uppercase_characters` attribute to be `true` to increase the strength of your password"
+        },
+        "publicId": "SNYK-CC-TF-7",
+        "msg": "input.resource.aws_iam_account_password_policy[strict].require_uppercase_characters",
+        "references": [],
+        "path": [
+          "input",
+          "resource",
+          "aws_iam_account_password_policy[strict]",
+          "require_uppercase_characters"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-9",
+        "title": "IAM password should contain symbols",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "IAM",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-9",
+        "isGeneratedByCustomRule": false,
+        "issue": "Your password does not contain symbols",
+        "impact": "Your password is not following the recommended security practices and is not as strong as it should be",
+        "resolve": "Set the `require_symbols` attribute to be `true` to increase the strength of your password",
+        "remediation": {
+          "terraform": "Set the `require_symbols` attribute to be `true` to increase the strength of your password"
+        },
+        "lineNumber": 11,
+        "iacDescription": {
+          "issue": "Your password does not contain symbols",
+          "impact": "Your password is not following the recommended security practices and is not as strong as it should be",
+          "resolve": "Set the `require_symbols` attribute to be `true` to increase the strength of your password"
+        },
+        "publicId": "SNYK-CC-TF-9",
+        "msg": "input.resource.aws_iam_account_password_policy[strict].require_symbols",
+        "references": [],
+        "path": [
+          "input",
+          "resource",
+          "aws_iam_account_password_policy[strict]",
+          "require_symbols"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-10",
+        "title": "IAM password should contain numbers",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "IAM",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-10",
+        "isGeneratedByCustomRule": false,
+        "issue": "Your password does not contain numbers",
+        "impact": "Your password is not following the recommended security practices and is not as strong as it should be",
+        "resolve": "Set the `require_numbers` attribute to be `true` to increase the strength of your password",
+        "remediation": {
+          "terraform": "Set the `require_numbers` attribute to be `true` to increase the strength of your password"
+        },
+        "lineNumber": 11,
+        "iacDescription": {
+          "issue": "Your password does not contain numbers",
+          "impact": "Your password is not following the recommended security practices and is not as strong as it should be",
+          "resolve": "Set the `require_numbers` attribute to be `true` to increase the strength of your password"
+        },
+        "publicId": "SNYK-CC-TF-10",
+        "msg": "input.resource.aws_iam_account_password_policy[strict].require_numbers",
+        "references": [],
+        "path": [
+          "input",
+          "resource",
+          "aws_iam_account_password_policy[strict]",
+          "require_numbers"
+        ],
+        "compliance": []
+      }
+    ]
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "433ef3a4-6d15-4240-9fa7-d07d3061b862",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "variables.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/variables.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": true,
+    "infrastructureAsCodeIssues": []
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "132d549a-f2c0-4886-8d57-171bb71bc15b",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/storage/main.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/storage/main.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": false,
+    "infrastructureAsCodeIssues": [
+      {
+        "id": "SNYK-CC-TF-127",
+        "title": "S3 bucket MFA delete control disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-127",
+        "isGeneratedByCustomRule": false,
+        "issue": "S3 bucket will not enforce MFA login on delete requests",
+        "impact": "Object could be deleted without stronger MFA authorization",
+        "resolve": "Follow instructions in `https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html` to manually configure the MFA setting. For AWS provider < v4.0.0 set `versioning.mfa_delete` attribute to `true` in aws_s3_bucket resource. For AWS provider >= v4.0.0 set 'versioning_configuration.mfa_delete` attribute to `Enabled`. The terraform change is required to reflect the setting in the state file",
+        "lineNumber": 112,
+        "iacDescription": {
+          "issue": "S3 bucket will not enforce MFA login on delete requests",
+          "impact": "Object could be deleted without stronger MFA authorization",
+          "resolve": "Follow instructions in `https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html` to manually configure the MFA setting. For AWS provider < v4.0.0 set `versioning.mfa_delete` attribute to `true` in aws_s3_bucket resource. For AWS provider >= v4.0.0 set 'versioning_configuration.mfa_delete` attribute to `Enabled`. The terraform change is required to reflect the setting in the state file"
+        },
+        "publicId": "SNYK-CC-TF-127",
+        "msg": "resource.aws_s3_bucket[km_public_blob].versioning.mfa_delete",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket[km_public_blob]",
+          "versioning",
+          "mfa_delete"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-127",
+        "title": "S3 bucket MFA delete control disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-127",
+        "isGeneratedByCustomRule": false,
+        "issue": "S3 bucket will not enforce MFA login on delete requests",
+        "impact": "Object could be deleted without stronger MFA authorization",
+        "resolve": "Follow instructions in `https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html` to manually configure the MFA setting. For AWS provider < v4.0.0 set `versioning.mfa_delete` attribute to `true` in aws_s3_bucket resource. For AWS provider >= v4.0.0 set 'versioning_configuration.mfa_delete` attribute to `Enabled`. The terraform change is required to reflect the setting in the state file",
+        "lineNumber": 104,
+        "iacDescription": {
+          "issue": "S3 bucket will not enforce MFA login on delete requests",
+          "impact": "Object could be deleted without stronger MFA authorization",
+          "resolve": "Follow instructions in `https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html` to manually configure the MFA setting. For AWS provider < v4.0.0 set `versioning.mfa_delete` attribute to `true` in aws_s3_bucket resource. For AWS provider >= v4.0.0 set 'versioning_configuration.mfa_delete` attribute to `Enabled`. The terraform change is required to reflect the setting in the state file"
+        },
+        "publicId": "SNYK-CC-TF-127",
+        "msg": "resource.aws_s3_bucket[km_blob_storage].versioning.mfa_delete",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiFactorAuthenticationDelete.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket[km_blob_storage]",
+          "versioning",
+          "mfa_delete"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-1",
+        "title": "Security Group allows open ingress",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "VPC",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-1",
+        "isGeneratedByCustomRule": false,
+        "issue": "That inbound traffic is allowed to a resource from any source instead of a restricted range",
+        "impact": "That potentially everyone can access your resource",
+        "resolve": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`",
+        "remediation": {
+          "cloudformation": "Set `Properties.SecurityGroupIngress.CidrIp` attribute with a more restrictive IP, for example `192.16.0.0/24`",
+          "terraform": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`"
+        },
+        "lineNumber": 19,
+        "iacDescription": {
+          "issue": "That inbound traffic is allowed to a resource from any source instead of a restricted range",
+          "impact": "That potentially everyone can access your resource",
+          "resolve": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`"
+        },
+        "publicId": "SNYK-CC-TF-1",
+        "msg": "input.resource.aws_security_group[km_rds_sg].ingress",
+        "references": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_security_group[km_rds_sg]",
+          "ingress"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-AWS-414",
+        "title": "RDS IAM authentication is disabled",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "RDS",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-AWS-414",
+        "isGeneratedByCustomRule": false,
+        "issue": "IAM database authentication is disabled, authentication tokens are not used to connect to DB instance",
+        "impact": "Users will connect to DB instance with password, which are less secure than temporary tokens which expire",
+        "resolve": "Set `iam_database_authentication_enabled` to `true`.",
+        "remediation": {
+          "cloudformation": "Set `Properties.EnableIAMDatabaseAuthentication` to `true`.",
+          "terraform": "Set `iam_database_authentication_enabled` to `true`."
+        },
+        "lineNumber": 45,
+        "iacDescription": {
+          "issue": "IAM database authentication is disabled, authentication tokens are not used to connect to DB instance",
+          "impact": "Users will connect to DB instance with password, which are less secure than temporary tokens which expire",
+          "resolve": "Set `iam_database_authentication_enabled` to `true`."
+        },
+        "publicId": "SNYK-CC-AWS-414",
+        "msg": "resource.aws_db_instance[km_db].iam_database_authentication_enabled",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html"
+        ],
+        "path": [
+          "resource",
+          "aws_db_instance[km_db]",
+          "iam_database_authentication_enabled"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-73",
+        "title": "AWS Security Group allows open egress",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "VPC",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-73",
+        "isGeneratedByCustomRule": false,
+        "issue": "The inline security group rule allows open egress",
+        "impact": "Open egress can be used to exfiltrate data to unauthorized destinations, and enable access to potentially malicious resources",
+        "remediation": {
+          "cloudformation": "Set `Properties.SecurityGroupEgress.CidrIp` attribute to specific ranges e.g. `192.168.1.0/24`",
+          "terraform": "Set `egress.cidr_blocks` attribute to specific ranges e.g. `192.168.1.0/24`"
+        },
+        "lineNumber": 27,
+        "iacDescription": {
+          "issue": "The inline security group rule allows open egress",
+          "impact": "Open egress can be used to exfiltrate data to unauthorized destinations, and enable access to potentially malicious resources"
+        },
+        "publicId": "SNYK-CC-TF-73",
+        "msg": "resource.aws_security_group[km_rds_sg].egress",
+        "references": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html",
+          "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-best-practices.html"
+        ],
+        "path": [
+          "resource",
+          "aws_security_group[km_rds_sg]",
+          "egress"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-98",
+        "title": "S3 restrict public bucket control is disabled",
+        "severity": "high",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-98",
+        "isGeneratedByCustomRule": false,
+        "issue": "Bucket will recognize public policies and allow public access",
+        "impact": "If public policy is attached to the bucket, anyone will be able to read and/or write to the bucket.",
+        "resolve": "Set `aws_s3_bucket_public_access_block` `restrict_public_buckets` attribute to `true`",
+        "remediation": {
+          "cloudformation": "Set `Properties.PublicAccessBlockConfiguration.RestrictPublicBuckets` attribute to `true`",
+          "terraform": "Set `aws_s3_bucket_public_access_block` `restrict_public_buckets` attribute to `true`"
+        },
+        "lineNumber": 116,
+        "iacDescription": {
+          "issue": "Bucket will recognize public policies and allow public access",
+          "impact": "If public policy is attached to the bucket, anyone will be able to read and/or write to the bucket.",
+          "resolve": "Set `aws_s3_bucket_public_access_block` `restrict_public_buckets` attribute to `true`"
+        },
+        "publicId": "SNYK-CC-TF-98",
+        "msg": "resource.aws_s3_bucket_public_access_block[km_public_blob].restrict_public_buckets",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html",
+          "https://docs.aws.amazon.com/AmazonS3/latest/user-guide/block-public-access.html",
+          "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket_public_access_block[km_public_blob]",
+          "restrict_public_buckets"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-45",
+        "title": "S3 server access logging is disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-45",
+        "isGeneratedByCustomRule": false,
+        "issue": "The s3 access logs will not be collected",
+        "impact": "There will be no audit trail of access to s3 objects",
+        "resolve": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource.",
+        "remediation": {
+          "cloudformation": "Set `Properties.LoggingConfiguration` attribute",
+          "terraform": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource."
+        },
+        "lineNumber": 104,
+        "iacDescription": {
+          "issue": "The s3 access logs will not be collected",
+          "impact": "There will be no audit trail of access to s3 objects",
+          "resolve": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource."
+        },
+        "publicId": "SNYK-CC-TF-45",
+        "msg": "input.resource.aws_s3_bucket[km_blob_storage].logging",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_s3_bucket[km_blob_storage]",
+          "logging"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-45",
+        "title": "S3 server access logging is disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-45",
+        "isGeneratedByCustomRule": false,
+        "issue": "The s3 access logs will not be collected",
+        "impact": "There will be no audit trail of access to s3 objects",
+        "resolve": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource.",
+        "remediation": {
+          "cloudformation": "Set `Properties.LoggingConfiguration` attribute",
+          "terraform": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource."
+        },
+        "lineNumber": 112,
+        "iacDescription": {
+          "issue": "The s3 access logs will not be collected",
+          "impact": "There will be no audit trail of access to s3 objects",
+          "resolve": "For AWS provider < v4.0.0, add `logging` block attribute. For AWS provider >= v4.0.0, add aws_s3_bucket_logging resource."
+        },
+        "publicId": "SNYK-CC-TF-45",
+        "msg": "input.resource.aws_s3_bucket[km_public_blob].logging",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_s3_bucket[km_public_blob]",
+          "logging"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-124",
+        "title": "S3 bucket versioning disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-124",
+        "isGeneratedByCustomRule": false,
+        "issue": "S3 bucket versioning is disabled",
+        "impact": "Changes or deletion of objects will not be reversible",
+        "resolve": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource.",
+        "remediation": {
+          "cloudformation": "Set `Properties.VersioningConfiguration.Status` attribute to `Enabled`",
+          "terraform": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource."
+        },
+        "lineNumber": 104,
+        "iacDescription": {
+          "issue": "S3 bucket versioning is disabled",
+          "impact": "Changes or deletion of objects will not be reversible",
+          "resolve": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource."
+        },
+        "publicId": "SNYK-CC-TF-124",
+        "msg": "resource.aws_s3_bucket[km_blob_storage].versioning.enabled",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket[km_blob_storage]",
+          "versioning",
+          "enabled"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-4",
+        "title": "Non-encrypted S3 Bucket",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-4",
+        "isGeneratedByCustomRule": false,
+        "issue": "Non-encrypted S3 Bucket",
+        "impact": "A non-encrypted S3 bucket increases the likelihood of unintentional data exposure",
+        "resolve": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource.",
+        "remediation": {
+          "cloudformation": "Set `BucketEncryption` attribute",
+          "terraform": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource."
+        },
+        "lineNumber": 104,
+        "iacDescription": {
+          "issue": "Non-encrypted S3 Bucket",
+          "impact": "A non-encrypted S3 bucket increases the likelihood of unintentional data exposure",
+          "resolve": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource."
+        },
+        "publicId": "SNYK-CC-TF-4",
+        "msg": "input.resource.aws_s3_bucket[km_blob_storage]",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/default-bucket-encryption.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_s3_bucket[km_blob_storage]"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-4",
+        "title": "Non-encrypted S3 Bucket",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-4",
+        "isGeneratedByCustomRule": false,
+        "issue": "Non-encrypted S3 Bucket",
+        "impact": "A non-encrypted S3 bucket increases the likelihood of unintentional data exposure",
+        "resolve": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource.",
+        "remediation": {
+          "cloudformation": "Set `BucketEncryption` attribute",
+          "terraform": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource."
+        },
+        "lineNumber": 112,
+        "iacDescription": {
+          "issue": "Non-encrypted S3 Bucket",
+          "impact": "A non-encrypted S3 bucket increases the likelihood of unintentional data exposure",
+          "resolve": "For AWS provider < v4.0.0, set `server_side_encryption_configuration` block attribute. For AWS provider >= v4.0.0 add aws_s3_bucket_server_side_encryption_configuration resource."
+        },
+        "publicId": "SNYK-CC-TF-4",
+        "msg": "input.resource.aws_s3_bucket[km_public_blob]",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/userguide/default-bucket-encryption.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_s3_bucket[km_public_blob]"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-56",
+        "title": "Security group description is missing",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "VPC",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-56",
+        "isGeneratedByCustomRule": false,
+        "issue": "The description field is missing in the security group",
+        "impact": "Increases the security management overhead",
+        "resolve": "Set `description` attribute to meaningful statement",
+        "lineNumber": 10,
+        "iacDescription": {
+          "issue": "The description field is missing in the security group",
+          "impact": "Increases the security management overhead",
+          "resolve": "Set `description` attribute to meaningful statement"
+        },
+        "publicId": "SNYK-CC-TF-56",
+        "msg": "resource.aws_security_group[km_rds_sg].description",
+        "references": [
+          "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html"
+        ],
+        "path": [
+          "resource",
+          "aws_security_group[km_rds_sg]",
+          "description"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-AWS-408",
+        "title": "RDS automatic backup is disabled",
+        "severity": "medium",
+        "isIgnored": false,
+        "type": "terraform",
+        "subType": "RDS",
+        "policyEngineType": "opa",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-AWS-408",
+        "isGeneratedByCustomRule": false,
+        "issue": "Automatic backup of AWS Relational Database is disabled",
+        "impact": "No automatic backups will occur, availability risk if disaster occurs and manual backups have not been set",
+        "resolve": "Set `resource.backup_retention_period` to `1` or more",
+        "remediation": {
+          "cloudformation": "Set `Properties.BackupRetentionPeriod` to `1` or more",
+          "terraform": "Set `resource.backup_retention_period` to `1` or more"
+        },
+        "lineNumber": 45,
+        "iacDescription": {
+          "issue": "Automatic backup of AWS Relational Database is disabled",
+          "impact": "No automatic backups will occur, availability risk if disaster occurs and manual backups have not been set",
+          "resolve": "Set `resource.backup_retention_period` to `1` or more"
+        },
+        "publicId": "SNYK-CC-AWS-408",
+        "msg": "resource.aws_db_instance[km_db].backup_retention_period",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html"
+        ],
+        "path": [
+          "resource",
+          "aws_db_instance[km_db]",
+          "backup_retention_period"
+        ],
+        "compliance": []
+      },
+      {
+        "id": "SNYK-CC-TF-124",
+        "title": "S3 bucket versioning disabled",
+        "severity": "low",
+        "isIgnored": false,
+        "subType": "S3",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-124",
+        "isGeneratedByCustomRule": false,
+        "issue": "S3 bucket versioning is disabled",
+        "impact": "Changes or deletion of objects will not be reversible",
+        "resolve": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource.",
+        "remediation": {
+          "cloudformation": "Set `Properties.VersioningConfiguration.Status` attribute to `Enabled`",
+          "terraform": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource."
+        },
+        "lineNumber": 112,
+        "iacDescription": {
+          "issue": "S3 bucket versioning is disabled",
+          "impact": "Changes or deletion of objects will not be reversible",
+          "resolve": "For AWS provider < v4.0.0, set `versioning.enabled` attribute to `true`. For AWS provider >= v4.0.0, add aws_s3_bucket_versioning resource."
+        },
+        "publicId": "SNYK-CC-TF-124",
+        "msg": "resource.aws_s3_bucket[km_public_blob].versioning.enabled",
+        "references": [
+          "https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html"
+        ],
+        "path": [
+          "resource",
+          "aws_s3_bucket[km_public_blob]",
+          "versioning",
+          "enabled"
+        ],
+        "compliance": []
+      }
+    ]
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "d96e34ea-6f6d-4b68-8393-5cfd9aade25d",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/storage/variables.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/storage/variables.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": true,
+    "infrastructureAsCodeIssues": []
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "6487c897-b789-413f-82fd-419297ae67c9",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/subnet/main 2.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/subnet/main 2.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": true,
+    "infrastructureAsCodeIssues": []
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "84d6fdd3-3fb3-42ca-b238-5f3f4155d4de",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/subnet/main.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/subnet/main.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": true,
+    "infrastructureAsCodeIssues": []
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "b560c18a-c5b7-4f32-900e-27ce29bfd7f3",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/subnet/outputs.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/subnet/outputs.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": true,
+    "infrastructureAsCodeIssues": []
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "cec47766-8d2f-4186-860f-c03b2e84916b",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/subnet/variables.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/subnet/variables.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": true,
+    "infrastructureAsCodeIssues": []
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "be8893d1-b755-4f71-a699-52265929bb8a",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/vpc/main 2.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/vpc/main 2.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": false,
+    "infrastructureAsCodeIssues": [
+      {
+        "id": "SNYK-CC-TF-1",
+        "title": "Security Group allows open ingress",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "VPC",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-1",
+        "isGeneratedByCustomRule": false,
+        "issue": "That inbound traffic is allowed to a resource from any source instead of a restricted range",
+        "impact": "That potentially everyone can access your resource",
+        "resolve": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`",
+        "remediation": {
+          "cloudformation": "Set `Properties.SecurityGroupIngress.CidrIp` attribute with a more restrictive IP, for example `192.16.0.0/24`",
+          "terraform": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`"
+        },
+        "lineNumber": 21,
+        "iacDescription": {
+          "issue": "That inbound traffic is allowed to a resource from any source instead of a restricted range",
+          "impact": "That potentially everyone can access your resource",
+          "resolve": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`"
+        },
+        "publicId": "SNYK-CC-TF-1",
+        "msg": "input.resource.aws_security_group[allow_ssh].ingress",
+        "references": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_security_group[allow_ssh]",
+          "ingress"
+        ],
+        "compliance": []
+      }
+    ]
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "209c0dcc-86ab-441e-9137-723f201a51f4",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/vpc/main.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/vpc/main.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": false,
+    "infrastructureAsCodeIssues": [
+      {
+        "id": "SNYK-CC-TF-1",
+        "title": "Security Group allows open ingress",
+        "severity": "medium",
+        "isIgnored": false,
+        "subType": "VPC",
+        "documentation": "https://snyk.io/security-rules/SNYK-CC-TF-1",
+        "isGeneratedByCustomRule": false,
+        "issue": "That inbound traffic is allowed to a resource from any source instead of a restricted range",
+        "impact": "That potentially everyone can access your resource",
+        "resolve": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`",
+        "remediation": {
+          "cloudformation": "Set `Properties.SecurityGroupIngress.CidrIp` attribute with a more restrictive IP, for example `192.16.0.0/24`",
+          "terraform": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`"
+        },
+        "lineNumber": 21,
+        "iacDescription": {
+          "issue": "That inbound traffic is allowed to a resource from any source instead of a restricted range",
+          "impact": "That potentially everyone can access your resource",
+          "resolve": "Set `cidr_block` attribute with a more restrictive IP, for example `192.16.0.0/24`"
+        },
+        "publicId": "SNYK-CC-TF-1",
+        "msg": "input.resource.aws_security_group[allow_ssh].ingress",
+        "references": [
+          "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"
+        ],
+        "path": [
+          "input",
+          "resource",
+          "aws_security_group[allow_ssh]",
+          "ingress"
+        ],
+        "compliance": []
+      }
+    ]
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "9f9bd070-78c0-497f-a9e9-918acfa81bf8",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/vpc/outputs.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/vpc/outputs.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": true,
+    "infrastructureAsCodeIssues": []
+  },
+  {
+    "meta": {
+      "isPrivate": true,
+      "isLicensesEnabled": false,
+      "ignoreSettings": {
+        "adminOnly": false,
+        "reasonRequired": false,
+        "disregardFilesystemIgnores": false
+      },
+      "org": "christopher.gibbs",
+      "orgPublicId": "c4aa72a0-0053-49bc-93d4-e9be7c7a6c05",
+      "projectId": "4cd7d2fe-b223-4f2d-9a1e-8cf9459528ff",
+      "policy": "",
+      "gitRemoteUrl": "http://github.com/cgibbs-snyk/snykcon-goof.git"
+    },
+    "filesystemPolicy": false,
+    "vulnerabilities": [],
+    "dependencyCount": 0,
+    "licensesPolicy": null,
+    "ignoreSettings": null,
+    "targetFile": "modules/vpc/variables.tf",
+    "projectName": "snykcon-goof",
+    "org": "christopher.gibbs",
+    "policy": "",
+    "isPrivate": true,
+    "targetFilePath": "/Users/chrisgibbs/Documents/git/snykcon-goof/modules/vpc/variables.tf",
+    "packageManager": "terraformconfig",
+    "path": "/Users/chrisgibbs/Documents/git/snykcon-goof",
+    "projectType": "terraformconfig",
+    "ok": true,
+    "infrastructureAsCodeIssues": []
+  }
+]
