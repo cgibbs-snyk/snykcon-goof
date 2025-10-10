@@ -1,20 +1,40 @@
-name: Example workflow for Node using Snyk
-on: push
+name: Snyk Security Scan
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  build:
+  snyk-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      
-      - name: Run Snyk test
-        uses: snyk/actions/node@master
-        continue-on-error: true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYKTOKEN }}
-          
-      - name: Run Snyk monitor 
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYKTOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          command: monitor
+          node-version: '18'
+
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Install and authenticate Snyk CLI
+        run: |
+          npm install -g snyk
+          snyk auth ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run a Snyk Open Source monitor (upload results to UI)
+        run: snyk monitor --all-projects
+
+      - name: Run a Snyk Code test with --report flag (upload results to UI)
+        run: snyk code test --report --project-name=my-project || true
+
+      - name: Build and monitor image with Snyk Container (upload results to UI)
+        run: |
+          docker build . -t imagename:tag
+          snyk container monitor imagename:tag --file=Dockerfile
+
+      - name: Run a Snyk IaC test with --report flag (upload results to UI)
+        run: snyk iac test --report
